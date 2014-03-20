@@ -11,6 +11,7 @@ class SiteController extends CController
 	 */
 	public function actionIndex()
 	{
+		$this->includeAssets();
 		$this->render('index', array('model' => new Link()));
 	}
 
@@ -85,15 +86,6 @@ class SiteController extends CController
 			Yii::app()->end();
 		}
 	}
-
-	/**
-	 * Controller bootstrap
-	 */
-	public function init()
-	{
-		$this->includeAssets();
-	}
-
 
 	/**
 	 * Include assets into html
