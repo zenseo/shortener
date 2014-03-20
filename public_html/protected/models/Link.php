@@ -106,8 +106,7 @@ class Link extends CActiveRecord
 
 		$this->id = substr($this->hash, 0, 6);
 
-		// If such id already exist (it is possible)
-		// make new until get unique
+		// Save new short link
 		$i = 0;
 		while (true) {
 			$i++;
@@ -115,10 +114,14 @@ class Link extends CActiveRecord
 				return $this;
 			}
 
+			// If we have same id in DB - make some new
 			$this->id = substr(sha1($this->id), 0, 6);
 
+
+			// Following code just for safety!
+
 			// If too many tryings - there's something wrong.
-			// maybe somebody make same short url in the same time.
+			// Maybe somebody make same short url in the same time.
 			if ($i > 10) {
 				$exist = $this->findByAttributes(array(
 					'hash' => $this->hash
@@ -128,7 +131,14 @@ class Link extends CActiveRecord
 					return $exist;
 				}
 			}
+
+			// Just for any case
+			if ($i > 12) {
+				break;
+			}
 		}
+
+		return $this;
 
 	}
 

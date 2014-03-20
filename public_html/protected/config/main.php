@@ -25,17 +25,17 @@ return array(
 			'enableParamLogging' => false,
 			'connectionString' => 'mysql:host=localhost;dbname=shortener',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'asdasd',
 			'charset' => 'utf8',
 		),
 
-//		'cache'=>array(
-//			'class'=>'system.caching.CMemCache',
-//			//'useMemcached'=>true,
-//			'servers'=>array(
-//				array('host'=>'localhost', 'port'=>11211, 'weight'=>100),
-//			),
-//		),
+		'cache'=>array(
+			'class'=>'system.caching.CMemCache',
+			//'useMemcached'=>true,
+			'servers'=>array(
+				array('host'=>'localhost', 'port'=>11211, 'weight'=>100),
+			),
+		),
 
 		// Включаем Yii Booster
 		'bootstrap' => array(

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class SiteController
+ */
 class SiteController extends CController
 {
 
@@ -38,7 +41,8 @@ class SiteController extends CController
 	/**
 	 * Redirect by short link if it exist.
 	 * You can turn on cache in config, but make sure, that
-	 * you have Memcached on your machine
+	 * you have Memcached on your machine.
+	 * Using 301 HTTP status code because of http://goo.gl/ do. I thrust them.
 	 *
 	 * @param string $link
 	 */
@@ -53,7 +57,7 @@ class SiteController extends CController
 		if ($cache) {
 			$exist_in_cache = $cache->get($link);
 			if ($exist_in_cache) {
-				$this->redirect($exist_in_cache);
+				$this->redirect($exist_in_cache, true, 301);
 			}
 		}
 
@@ -63,10 +67,10 @@ class SiteController extends CController
 				// Stores in cache 1 hour
 				$cache->add($exist->id, $exist->url, 60 * 60);
 			}
-			$this->redirect($exist->url);
+			$this->redirect($exist->url, true, 301);
 		}
 
-		$this->redirect('/');
+		$this->redirect('/', true, 301);
 	}
 
 	/**
@@ -97,9 +101,11 @@ class SiteController extends CController
 	protected function includeAssets()
 	{
 		/**
+		 * @var CWebApplication $app
 		 * @var CClientScript $cs
 		 */
-		$cs = Yii::app()->getClientScript();
+		$app = Yii::app();
+		$cs = $app->getClientScript();
 		$cs->addPackage('site', array(
 			'baseUrl' => $this->getAssetsUrl(),
 			'css' => array(
@@ -121,9 +127,11 @@ class SiteController extends CController
 	public function getAssetsUrl()
 	{
 		/**
+		 * @var CWebApplication $app
 		 * @var CAssetManager $am
 		 */
-		$am = Yii::app()->getAssetManager();
+		$app = Yii::app();
+		$am = $app->getAssetManager();
 
 		return $am->publish(Yii::getPathOfAlias('application.assets'));
 	}

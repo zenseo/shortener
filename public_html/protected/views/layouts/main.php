@@ -1,6 +1,7 @@
 <?php
 /**
  * @var CController $this
+ * @var string $content
  */
 // Если идет аяксовый запрос, то сразу просто отдаем контент без лишней нагрузки на сервер
 if (Yii::app()->request->isAjaxRequest) {

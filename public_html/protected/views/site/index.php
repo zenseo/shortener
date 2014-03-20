@@ -27,6 +27,9 @@ $this->pageTitle = Yii::t('site', Yii::app()->name);
 					}
 					return false;
 				}'
+				),
+				'htmlOptions' => array(
+					'class' => 'text-center'
 				)
 			));
 
