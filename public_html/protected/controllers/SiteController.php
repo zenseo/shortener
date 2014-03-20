@@ -11,6 +11,7 @@ class SiteController extends CController
 	 */
 	public function actionIndex()
 	{
+		$this->includeAssets();
 		$this->render('index', array('model' => new Link()));
 	}
 
@@ -40,8 +41,6 @@ class SiteController extends CController
 
 	/**
 	 * Redirect by short link if it exist.
-	 * You can turn on cache in config, but make sure, that
-	 * you have Memcached on your machine.
 	 * Using 301 HTTP status code because of http://goo.gl/ do. I thrust them.
 	 *
 	 * @param string $link
@@ -85,15 +84,6 @@ class SiteController extends CController
 			Yii::app()->end();
 		}
 	}
-
-	/**
-	 * Controller bootstrap
-	 */
-	public function init()
-	{
-		$this->includeAssets();
-	}
-
 
 	/**
 	 * Include assets into html
